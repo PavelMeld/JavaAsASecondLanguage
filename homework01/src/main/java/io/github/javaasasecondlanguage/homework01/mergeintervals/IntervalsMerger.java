@@ -1,4 +1,6 @@
-package io.github.javaasasecondlanguage.homework01.mergeintervals;
+//package io.github.javaasasecondlanguage.homework01.mergeintervals;
+import java.util.List;
+import java.util.stream.Collectors;
 
 public class IntervalsMerger {
     /**
@@ -15,7 +17,19 @@ public class IntervalsMerger {
      * @return merged intervals
      * @throws IllegalArgumentException if intervals is null
      */
-    public int[][] merge(int[][] intervals) {
-        throw new RuntimeException("Not implemented");
+    public static int[][] merge(int[][] intervals) {
+		List<Integer> sortedList = java.util.Arrays.asList(intervals).stream()
+			.sorted((o1, o2) -> o1[0] - o2[0])
+			.flatMapToInt(a -> java.util.Arrays.asList(a).stream().map(Integer::new))
+			.collect(Collectors.toList());
+
+		return intervals;
     }
+
+	public static void main(String [] argv) {
+		int [][]intervals = {{0, 10}, {12, 20}};
+
+		merge(intervals);
+
+	}
 }

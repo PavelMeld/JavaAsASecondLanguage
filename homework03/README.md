@@ -101,7 +101,7 @@ Successful result:
 * "/flit/add": adds new flit from user with the specified token. 
     - Method: POST   
     - Accepts: object like `{"userToken": <token>, "content": <flits content>}`
-    - Returns: anything
+    - Returns: `{"result" : "<result>"}` on success `<result>` is `OK`, `ERROR` if not.
 ```shell script
 curl -X POST 'localhost:8080/flit/add' -d '{"userToken": "7b74505e-e07a-4544-b060-909956d2161c", "content": "I like Java!"}' -H "Content-Type: application/json"
 ```
@@ -148,7 +148,7 @@ Error:
 * "/flit/list/feed/{usertoken}": returns flit feed for specified user. 
     - Method: GET   
     - Accepts: path param "usertoken"
-    - Returns: list of objects like `{"data":{"userName": <name>, "content": <flits content>}}`
+    - Returns: list of objects like `{"data":[{"userName": <name>, "content": <flits content>}]}`
 
 ```shell script
 curl 'localhost:8080/flit/list/feed/7b74505e-e07a-4544-b060-909956d2161c'

@@ -10,10 +10,10 @@ import org.springframework.boot.web.server.LocalServerPort;
 
 import java.util.List;
 
-import static io.github.javaasasecondlanguage.flitter.utils.AssertionUtils.assertEquals;
 import static io.github.javaasasecondlanguage.flitter.utils.AssertionUtils.assertSetEquals;
 import static io.github.javaasasecondlanguage.flitter.utils.ExpectedStatus.EXPECT_FAIL;
 import static io.github.javaasasecondlanguage.flitter.utils.ExpectedStatus.EXPECT_SUCCESS;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 public class UserRestTest {

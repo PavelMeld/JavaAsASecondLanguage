@@ -5,7 +5,9 @@ import io.github.javaasasecondlanguage.flitter.db.UserDatabase;
 import io.github.javaasasecondlanguage.flitter.dto.SimpleResponseDto;
 import io.github.javaasasecondlanguage.flitter.dto.SubscribeRequestDto;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -42,22 +44,28 @@ public class SubscribeService {
 
     @PostMapping(value = "/unsubscribe", consumes = MediaType.APPLICATION_JSON_VALUE,
             produces = MediaType.APPLICATION_JSON_VALUE)
-    SimpleResponseDto unsubscribe(@RequestBody SubscribeRequestDto requestDto) {
+    ResponseEntity<SimpleResponseDto> unsubscribe(@RequestBody SubscribeRequestDto requestDto) {
         String user = userDatabase.getUserByToken(requestDto.getSubscriberToken());
 
         if (user == null) {
-            return SimpleResponseDto.errorResponse(SimpleResponseDto.CommonResponses.UNAUTHORIZED);
+            return new ResponseEntity<>(
+                    SimpleResponseDto.errorResponse(SimpleResponseDto.CommonResponses.UNAUTHORIZED),
+                    HttpStatus.UNAUTHORIZED);
         }
 
         String publisher = requestDto.getPublisherName();
 
         if (!subscriptionDatabase.userIsSubscribed(user, publisher)) {
-            return SimpleResponseDto.errorResponse(SimpleResponseDto.CommonResponses.USER_NOT_FOUND);
+            return new ResponseEntity<>(
+                    SimpleResponseDto.errorResponse(SimpleResponseDto.CommonResponses.USER_NOT_FOUND),
+                    HttpStatus.BAD_REQUEST);
         }
 
         subscriptionDatabase.unsubscribe(user, publisher);
 
-        return SimpleResponseDto.successfullResponse(SimpleResponseDto.CommonResponses.SUCCESS);
+        return new ResponseEntity<>(
+                SimpleResponseDto.successfullResponse(SimpleResponseDto.CommonResponses.SUCCESS),
+                HttpStatus.OK);
     }
 
 }

@@ -7,7 +7,9 @@ import io.github.javaasasecondlanguage.flitter.dto.FlitListDto;
 import io.github.javaasasecondlanguage.flitter.dto.NewFlitDto;
 import io.github.javaasasecondlanguage.flitter.dto.SimpleResponseDto;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -15,6 +17,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.net.http.HttpResponse;
 import java.util.Set;
 import java.util.stream.Collectors;
 
@@ -32,32 +35,42 @@ public class FlitService {
             value = "/add",
             consumes = MediaType.APPLICATION_JSON_VALUE,
             produces = MediaType.APPLICATION_JSON_VALUE)
-    SimpleResponseDto addFlit(@RequestBody NewFlitDto newFlit) {
+    ResponseEntity<SimpleResponseDto> addFlit(@RequestBody NewFlitDto newFlit) {
         String user = userDatabase.getUserByToken(newFlit.getUserToken());
 
         if (user == null) {
-            return SimpleResponseDto.errorResponse(SimpleResponseDto.CommonResponses.USER_NOT_FOUND);
+            return new ResponseEntity<>(
+                    SimpleResponseDto.errorResponse(SimpleResponseDto.CommonResponses.USER_NOT_FOUND),
+                    HttpStatus.BAD_REQUEST);
         }
 
         flitDatabase.addFlit(user, newFlit.getContent());
-        return SimpleResponseDto.successfullResponse(SimpleResponseDto.CommonResponses.SUCCESS);
+        return new ResponseEntity<>(
+                SimpleResponseDto.successfullResponse(SimpleResponseDto.CommonResponses.SUCCESS),
+                HttpStatus.OK);
     }
 
     @GetMapping(value = "/list/{username}", produces = MediaType.APPLICATION_JSON_VALUE)
-    SimpleResponseDto discoverLastTen(@PathVariable("username") String userName) {
+    ResponseEntity<SimpleResponseDto> discoverLastTen(@PathVariable("username") String userName) {
         if (!userDatabase.userExists(userName)) {
-            return SimpleResponseDto.errorResponse(SimpleResponseDto.CommonResponses.USER_NOT_FOUND);
+            return new ResponseEntity<>(
+                    SimpleResponseDto.errorResponse(SimpleResponseDto.CommonResponses.USER_NOT_FOUND),
+                    HttpStatus.BAD_REQUEST);
         }
-        return FlitListDto.FlitListFromFlitDatabase(flitDatabase.flitsFromUser(userName));
+        return new ResponseEntity<>(
+                FlitListDto.FlitListFromFlitDatabase(flitDatabase.flitsFromUser(userName)),
+                HttpStatus.OK);
 
     }
 
     @GetMapping(value = "/list/feed/{usertoken}", produces = MediaType.APPLICATION_JSON_VALUE)
-    SimpleResponseDto getFeed(@PathVariable("usertoken") String userToken) {
+    ResponseEntity<SimpleResponseDto> getFeed(@PathVariable("usertoken") String userToken) {
         String user = userDatabase.getUserByToken(userToken);
 
         if (user == null) {
-           return SimpleResponseDto.errorResponse(SimpleResponseDto.CommonResponses.USER_NOT_FOUND);
+            return new ResponseEntity<>(
+                    SimpleResponseDto.errorResponse(SimpleResponseDto.CommonResponses.UNAUTHORIZED),
+                    HttpStatus.UNAUTHORIZED);
         }
 
         Set<String> publishers = subscriptionDatabase.getSources(user);
@@ -67,7 +80,9 @@ public class FlitService {
                 .flatMap((publisherFlits)->publisherFlits.stream())
                 .collect(Collectors.toList());
 
-        return FlitListDto.FlitListFromFlitDatabase(flits);
+        return new ResponseEntity<>(
+                FlitListDto.FlitListFromFlitDatabase(flits),
+                HttpStatus.OK);
     }
 
     @GetMapping(value = "/discover", produces = MediaType.APPLICATION_JSON_VALUE)

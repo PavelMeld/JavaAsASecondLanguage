@@ -1,6 +1,6 @@
 package io.github.javaasasecondlanguage.flitter.dto;
 
-public class RegistrationResponseDto {
+public class RegistrationResponseDto extends SimpleResponseDto {
     class RegistrationInfo {
         public final String userName;
         public final String userToken;

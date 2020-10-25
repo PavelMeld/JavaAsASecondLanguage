@@ -4,7 +4,8 @@ public class SimpleResponseDto {
     public enum CommonResponses {
         SUCCESS("OK"),
         UNAUTHORIZED("Unauthorized"),
-        USER_NOT_FOUND("User not found");
+        USER_NOT_FOUND("User not found"),
+        USER_EXISTS("User exists");
 
         String text;
 

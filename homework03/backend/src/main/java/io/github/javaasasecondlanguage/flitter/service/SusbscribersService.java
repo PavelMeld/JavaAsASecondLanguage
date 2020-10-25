@@ -3,6 +3,7 @@ package io.github.javaasasecondlanguage.flitter.service;
 import io.github.javaasasecondlanguage.flitter.db.SubscriptionDatabase;
 import io.github.javaasasecondlanguage.flitter.db.UserDatabase;
 import io.github.javaasasecondlanguage.flitter.dto.SimpleResponseDto;
+import io.github.javaasasecondlanguage.flitter.dto.SimpleResponseDto.CommonResponses;
 import io.github.javaasasecondlanguage.flitter.dto.UserListDto;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -27,7 +28,7 @@ public class SusbscribersService {
         String user = userDatabase.getUserByToken(userToken);
         if (user == null) {
             return new ResponseEntity<>(
-                    SimpleResponseDto.errorResponse(SimpleResponseDto.CommonResponses.USER_NOT_FOUND),
+                    SimpleResponseDto.errorResponse(CommonResponses.USER_NOT_FOUND),
                     HttpStatus.BAD_REQUEST);
         }
 

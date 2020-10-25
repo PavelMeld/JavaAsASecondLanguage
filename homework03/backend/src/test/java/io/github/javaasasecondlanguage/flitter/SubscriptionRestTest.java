@@ -213,7 +213,8 @@ public class SubscriptionRestTest {
         }
 
         var flitsFromFeed = rest.listFlitsConsumedByUser(subscriberToken, EXPECT_SUCCESS);
-        assertMapsEqualByKeys(expectedFlits, flitsFromFeed, TestConstants.USER_NAME, TestConstants.USER_TOKEN);
+        assertMapsEqualByKeys(expectedFlits,
+                flitsFromFeed, TestConstants.USER_NAME, TestConstants.USER_TOKEN);
     }
 
 

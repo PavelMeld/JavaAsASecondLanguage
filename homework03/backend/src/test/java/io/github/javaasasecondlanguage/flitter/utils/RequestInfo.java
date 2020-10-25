@@ -13,7 +13,8 @@ public class RequestInfo {
     public RequestInfo() {
     }
 
-    public RequestInfo(String endpoint, Method method, Map<String, String> params, Object response) {
+    public RequestInfo(String endpoint, Method method,
+                       Map<String, String> params, Object response) {
         this.endpoint = endpoint;
         this.method = method;
         this.params = params;

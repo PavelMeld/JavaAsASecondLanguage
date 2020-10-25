@@ -5,6 +5,7 @@ import io.github.javaasasecondlanguage.flitter.UserExistException;
 import io.github.javaasasecondlanguage.flitter.dto.RegistrationRequestDto;
 import io.github.javaasasecondlanguage.flitter.dto.RegistrationResponseDto;
 import io.github.javaasasecondlanguage.flitter.dto.SimpleResponseDto;
+import io.github.javaasasecondlanguage.flitter.dto.SimpleResponseDto.CommonResponses;
 import io.github.javaasasecondlanguage.flitter.dto.UserListDto;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -26,7 +27,8 @@ public class UserService {
 
     @PostMapping(value = "/register", consumes = MediaType.APPLICATION_JSON_VALUE,
                     produces = MediaType.APPLICATION_JSON_VALUE)
-    ResponseEntity<SimpleResponseDto> registerUser(@RequestBody RegistrationRequestDto requestDto, String name) {
+    ResponseEntity<SimpleResponseDto>
+        registerUser(@RequestBody RegistrationRequestDto requestDto, String name) {
         SimpleResponseDto response;
         HttpStatus responseCode;
 
@@ -38,7 +40,7 @@ public class UserService {
                     requestDto.getUserName(), userHash);
             responseCode = HttpStatus.OK;
         } catch (UserExistException e) {
-            response = SimpleResponseDto.errorResponse(SimpleResponseDto.CommonResponses.USER_EXISTS);
+            response = SimpleResponseDto.errorResponse(CommonResponses.USER_EXISTS);
             responseCode = HttpStatus.CONFLICT;
         }
 

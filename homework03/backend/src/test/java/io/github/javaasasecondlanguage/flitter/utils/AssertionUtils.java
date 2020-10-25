@@ -33,7 +33,8 @@ public class AssertionUtils {
         org.junit.jupiter.api.Assertions.fail(fullMessage);
     }
 
-    public static <A, B> void assertSetEquals(Collection<A> expectedCollection, Collection<B> actualCollection) {
+    public static <A, B> void assertSetEquals(Collection<A> expectedCollection,
+                                              Collection<B> actualCollection) {
         assertEquals(
                 new HashSet<>(expectedCollection),
                 new HashSet<>(actualCollection)
@@ -51,7 +52,8 @@ public class AssertionUtils {
         );
     }
 
-    public static void assertThatStatusIsExpected(ExpectedStatus expectedStatus, ResponseEntity<Result> responseEntity) {
+    public static void assertThatStatusIsExpected(ExpectedStatus expectedStatus,
+                                                  ResponseEntity<Result> responseEntity) {
         var statusCode = responseEntity.getStatusCode();
         var result = responseEntity.getBody();
 
@@ -74,20 +76,23 @@ public class AssertionUtils {
         String assertionMessage = null;
         if (hasErrorMessage && hasErrorCode) {
             assertionMessage = format(
-                    "Expected success in this response, but it has error message and error code. Error message: %s, error code: %s, Data: %s",
+                    "Expected success in this response, but it has error message and error code. "
+                    + "Error message: %s, error code: %s, Data: %s",
                     errorMessage,
                     statusCode,
                     data
             );
         } else if (hasErrorMessage) {
             assertionMessage = format(
-                    "Expected success in this response, but it has error message. Error message: %s, data: %s",
+                    "Expected success in this response, but it has error message. "
+                    + "Error message: %s, data: %s",
                     errorMessage,
                     data
             );
         } else if (hasErrorCode) {
             assertionMessage = format(
-                    "Expected success in this response, but it has error code. Error code: %s, data: %s",
+                    "Expected success in this response, but it has error code. "
+                    + "Error code: %s, data: %s",
                     statusCode,
                     data
             );
@@ -107,18 +112,21 @@ public class AssertionUtils {
         String assertionMessage = null;
         if (!hasErrorMessage && !hasErrorCode) {
             assertionMessage = format(
-                    "Expected fail in this response, but it has no error message and no error code. Data: %s",
+                    "Expected fail in this response, but it has no error message and no error code."
+                    + " Data: %s",
                     data
             );
         } else if (hasErrorMessage && !hasErrorCode) {
             assertionMessage = format(
-                    "Expected fail in this response, but it has no error code, only error message. Error message: %s, data: %s",
+                    "Expected fail in this response, but it has no error code, only error message. "
+                    + "Error message: %s, data: %s",
                     errorMessage,
                     data
             );
         } else if (!hasErrorMessage) {
             assertionMessage = format(
-                    "Expected fail in this response, but it has no error message, only error code. Error code: %s, data: %s",
+                    "Expected fail in this response, but it has no error message, only error code. "
+                    + "Error code: %s, data: %s",
                     statusCode,
                     data
             );
@@ -129,9 +137,11 @@ public class AssertionUtils {
         }
     }
 
-    // ==== Information about last HTTP request is saved in static context for better assertion messages.
+    // ==== Information about last HTTP request is saved in static context
+    // for better assertion messages.
 
-    private static RequestInfo lastRequestInfo = new RequestInfo("<nothing called yet>", null, Map.of(), null);
+    private static RequestInfo lastRequestInfo = new RequestInfo("<nothing called yet>",
+            null, Map.of(), null);
 
     public static void saveRequestInfo(String endpoint,
                                        RequestInfo.Method method,

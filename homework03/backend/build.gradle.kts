@@ -3,6 +3,7 @@ version = "1.0-SNAPSHOT"
 
 plugins {
     java
+    checkstyle
     id("org.springframework.boot") version "2.3.4.RELEASE"
 }
 
@@ -22,6 +23,11 @@ dependencies {
         exclude(group = "org.junit.vintage", module = "junit-vintage-engine")
     }
     runtimeOnly(files("../frontend-1.0-SNAPSHOT.jar"))
+}
+
+checkstyle {
+    toolVersion = "8.36.1"
+    config = resources.text.fromFile("../../config/checkstyle/checkstyle.xml")
 }
 
 tasks.test {

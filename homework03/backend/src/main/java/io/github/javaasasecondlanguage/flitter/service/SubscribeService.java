@@ -3,6 +3,7 @@ package io.github.javaasasecondlanguage.flitter.service;
 import io.github.javaasasecondlanguage.flitter.db.SubscriptionDatabase;
 import io.github.javaasasecondlanguage.flitter.db.UserDatabase;
 import io.github.javaasasecondlanguage.flitter.dto.SimpleResponseDto;
+import io.github.javaasasecondlanguage.flitter.dto.SimpleResponseDto.CommonResponses;
 import io.github.javaasasecondlanguage.flitter.dto.SubscribeRequestDto;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -28,18 +29,18 @@ public class SubscribeService {
         String user = userDatabase.getUserByToken(requestDto.getSubscriberToken());
 
         if (user == null) {
-            return SimpleResponseDto.errorResponse(SimpleResponseDto.CommonResponses.UNAUTHORIZED);
+            return SimpleResponseDto.errorResponse(CommonResponses.UNAUTHORIZED);
         }
 
         String publisher = requestDto.getPublisherName();
 
         if (!userDatabase.userExists(publisher)) {
-            return SimpleResponseDto.errorResponse(SimpleResponseDto.CommonResponses.USER_NOT_FOUND);
+            return SimpleResponseDto.errorResponse(CommonResponses.USER_NOT_FOUND);
         }
 
         subscriptionDatabase.subscribe(user, publisher);
 
-        return SimpleResponseDto.successfullResponse(SimpleResponseDto.CommonResponses.SUCCESS);
+        return SimpleResponseDto.successfullResponse(CommonResponses.SUCCESS);
     }
 
     @PostMapping(value = "/unsubscribe", consumes = MediaType.APPLICATION_JSON_VALUE,
@@ -49,7 +50,7 @@ public class SubscribeService {
 
         if (user == null) {
             return new ResponseEntity<>(
-                    SimpleResponseDto.errorResponse(SimpleResponseDto.CommonResponses.UNAUTHORIZED),
+                    SimpleResponseDto.errorResponse(CommonResponses.UNAUTHORIZED),
                     HttpStatus.UNAUTHORIZED);
         }
 
@@ -57,14 +58,14 @@ public class SubscribeService {
 
         if (!subscriptionDatabase.userIsSubscribed(user, publisher)) {
             return new ResponseEntity<>(
-                    SimpleResponseDto.errorResponse(SimpleResponseDto.CommonResponses.USER_NOT_FOUND),
+                    SimpleResponseDto.errorResponse(CommonResponses.USER_NOT_FOUND),
                     HttpStatus.BAD_REQUEST);
         }
 
         subscriptionDatabase.unsubscribe(user, publisher);
 
         return new ResponseEntity<>(
-                SimpleResponseDto.successfullResponse(SimpleResponseDto.CommonResponses.SUCCESS),
+                SimpleResponseDto.successfullResponse(CommonResponses.SUCCESS),
                 HttpStatus.OK);
     }
 

@@ -25,7 +25,8 @@ public class RegistrationResponseDto extends SimpleResponseDto {
         this.error = reason;
     }
 
-    public static RegistrationResponseDto successfullRegistrationgDto(String userName, String token) {
+    public static RegistrationResponseDto
+        successfullRegistrationgDto(String userName, String token) {
         return new RegistrationResponseDto(userName, token);
     }
 

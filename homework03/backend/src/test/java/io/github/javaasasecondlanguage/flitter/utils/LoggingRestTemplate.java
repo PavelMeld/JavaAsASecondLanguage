@@ -35,7 +35,8 @@ public class LoggingRestTemplate {
 
     public ResponseEntity<Result> post(Map<String, String> params, String... handleParts) {
         var endpoint = getFullPath(handleParts);
-        ResponseEntity<Result> response = restTemplate.postForEntity(endpoint, params, Result.class);
+        ResponseEntity<Result> response = restTemplate.postForEntity(endpoint,
+                params, Result.class);
 
         saveRequestInfo(endpoint, GET, Map.of(), response);
 

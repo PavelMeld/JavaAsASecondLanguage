@@ -6,6 +6,7 @@ import io.github.javaasasecondlanguage.flitter.db.UserDatabase;
 import io.github.javaasasecondlanguage.flitter.dto.FlitListDto;
 import io.github.javaasasecondlanguage.flitter.dto.NewFlitDto;
 import io.github.javaasasecondlanguage.flitter.dto.SimpleResponseDto;
+import io.github.javaasasecondlanguage.flitter.dto.SimpleResponseDto.CommonResponses;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
@@ -17,7 +18,6 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import java.net.http.HttpResponse;
 import java.util.Set;
 import java.util.stream.Collectors;
 
@@ -40,25 +40,25 @@ public class FlitService {
 
         if (user == null) {
             return new ResponseEntity<>(
-                    SimpleResponseDto.errorResponse(SimpleResponseDto.CommonResponses.USER_NOT_FOUND),
+                    SimpleResponseDto.errorResponse(CommonResponses.USER_NOT_FOUND),
                     HttpStatus.BAD_REQUEST);
         }
 
         flitDatabase.addFlit(user, newFlit.getContent());
         return new ResponseEntity<>(
-                SimpleResponseDto.successfullResponse(SimpleResponseDto.CommonResponses.SUCCESS),
+                SimpleResponseDto.successfullResponse(CommonResponses.SUCCESS),
                 HttpStatus.OK);
     }
 
     @GetMapping(value = "/list/{username}", produces = MediaType.APPLICATION_JSON_VALUE)
-    ResponseEntity<SimpleResponseDto> discoverLastTen(@PathVariable("username") String userName) {
+    ResponseEntity<SimpleResponseDto> userFlits(@PathVariable("username") String userName) {
         if (!userDatabase.userExists(userName)) {
             return new ResponseEntity<>(
-                    SimpleResponseDto.errorResponse(SimpleResponseDto.CommonResponses.USER_NOT_FOUND),
+                    SimpleResponseDto.errorResponse(CommonResponses.USER_NOT_FOUND),
                     HttpStatus.BAD_REQUEST);
         }
         return new ResponseEntity<>(
-                FlitListDto.FlitListFromFlitDatabase(flitDatabase.flitsFromUser(userName)),
+                FlitListDto.flitListFromFlitDatabase(flitDatabase.flitsFromUser(userName)),
                 HttpStatus.OK);
 
     }
@@ -69,7 +69,7 @@ public class FlitService {
 
         if (user == null) {
             return new ResponseEntity<>(
-                    SimpleResponseDto.errorResponse(SimpleResponseDto.CommonResponses.UNAUTHORIZED),
+                    SimpleResponseDto.errorResponse(CommonResponses.UNAUTHORIZED),
                     HttpStatus.UNAUTHORIZED);
         }
 
@@ -77,16 +77,16 @@ public class FlitService {
 
         var flits = publishers.stream()
                 .map(flitDatabase::flitsFromUser)
-                .flatMap((publisherFlits)->publisherFlits.stream())
+                .flatMap((publisherFlits) -> publisherFlits.stream())
                 .collect(Collectors.toList());
 
         return new ResponseEntity<>(
-                FlitListDto.FlitListFromFlitDatabase(flits),
+                FlitListDto.flitListFromFlitDatabase(flits),
                 HttpStatus.OK);
     }
 
     @GetMapping(value = "/discover", produces = MediaType.APPLICATION_JSON_VALUE)
     FlitListDto discoverLastTen() {
-        return FlitListDto.FlitListFromFlitDatabase(flitDatabase.lastTen());
+        return FlitListDto.flitListFromFlitDatabase(flitDatabase.lastTen());
     }
 }

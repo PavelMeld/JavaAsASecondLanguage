@@ -14,7 +14,7 @@ public class FlitListDto extends SimpleResponseDto {
         this.errorMessage = errorMessage;
     }
 
-    public static FlitListDto FlitListFromFlitDatabase(List<FlitDatabase.FlitRecord> records) {
+    public static FlitListDto flitListFromFlitDatabase(List<FlitDatabase.FlitRecord> records) {
         return new FlitListDto(
                 records.stream()
                         .map((record) -> new FlitDto(record.user, record.content))

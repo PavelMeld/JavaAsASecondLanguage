@@ -27,15 +27,17 @@ public class UserDatabase {
     }
 
     public String addUser(String userName) throws UserExistException {
-        if (userToToken.containsKey(userName))
+        if (userToToken.containsKey(userName)) {
             throw new UserExistException(ALREADY_TAKEN);
+        }
 
         // Generate simple MD5 with length salt
         String curTime = Instant.now().toString();
         // Temporary
         curTime = Instant.MIN.toString();
 
-        ByteBuffer rawData = ByteBuffer.allocate(Integer.BYTES + userName.length() + curTime.length());
+        ByteBuffer rawData = ByteBuffer.allocate(Integer.BYTES
+                + userName.length() + curTime.length());
 
         rawData.putInt(userName.length());
         rawData.put(userName.getBytes());

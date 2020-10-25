@@ -35,15 +35,17 @@ public class FlitDatabase {
     }
 
     public List<FlitRecord> lastTen() {
-        if (flits.size() == 0)
+        if (flits.size() == 0) {
             return Collections.emptyList();
+        }
 
         return flits.subList(0, Math.min(10, flits.size()));
     }
 
     public List<FlitRecord> flitsFromUser(String user) {
-        if (flits.size() == 0)
+        if (flits.size() == 0) {
             return Collections.emptyList();
+        }
 
         return flits.stream()
                 .filter((entry) -> entry.user.equals((user)))

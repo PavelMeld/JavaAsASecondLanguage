@@ -23,7 +23,7 @@ public class ClearService {
     @Autowired
     SubscriptionDatabase subscriptionDatabase;
 
-    @DeleteMapping(value="", produces = MediaType.APPLICATION_JSON_VALUE)
+    @DeleteMapping(value = "", produces = MediaType.APPLICATION_JSON_VALUE)
     SimpleResponseDto clear() {
         userDatabase.clear();
         flitDatabase.clear();

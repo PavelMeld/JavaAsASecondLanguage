@@ -10,7 +10,8 @@ import java.util.stream.Collectors;
 
 public class CollectionTestUtils {
 
-    public static <A> Set<Map<String, A>> retainKeys(Collection<Map<String, A>> inputCollection, String... retainedKeys) {
+    public static <A> Set<Map<String, A>> retainKeys(Collection<Map<String, A>> inputCollection,
+                                                     String... retainedKeys) {
         return inputCollection
                 .stream()
                 .map(m -> retainKeys(m, retainedKeys))

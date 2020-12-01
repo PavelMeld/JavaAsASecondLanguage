@@ -26,7 +26,9 @@ public class GraphVisualizer {
         System.setProperty("org.graphstream.ui", "swing");
 
         Graph visualGraph = new SingleGraph("Main");
-//        visualGraph.setAttribute("ui.stylesheet", "url('/Users/ivan.azanov/Documents/Spark/JavaAsASecondLanguage/homework04/src/main/resources/style.css')");
+        //visualGraph.setAttribute("ui.stylesheet",
+        //"url('/Users/ivan.azanov/Documents/Spark/JavaAsASecondLanguage"
+        //+ /homework04/src/main/resources/style.css')");
         visualGraph.setAttribute("ui.stylesheet", STYLESHEET);
 
         visualGraph.setAttribute("layout.force", 0.99);
@@ -105,7 +107,8 @@ public class GraphVisualizer {
         }
     }
 
-    private static void createMockInputNode(Graph visualGraph, Node previousVisualNode, Node currentVisualNode) {
+    private static void createMockInputNode(Graph visualGraph,
+            Node previousVisualNode, Node currentVisualNode) {
         if (previousVisualNode != null) {
             return;
         }
@@ -117,7 +120,8 @@ public class GraphVisualizer {
         createEdge(visualGraph, inputNode, currentVisualNode);
     }
 
-    private static void createMockOutputNode(Graph visualGraph, ProcNode currentProcNode, Node currentVisualNode) {
+    private static void createMockOutputNode(Graph visualGraph,
+                 ProcNode currentProcNode, Node currentVisualNode) {
         if (!currentProcNode.getCollector().getConnections().isEmpty()) {
             return;
         }
@@ -137,51 +141,50 @@ public class GraphVisualizer {
         visualGraph.addEdge(edgeId, fromVisualNode, toVisualNode, true);
     }
 
-    public static final String STYLESHEET = "/*\n" +
-            "*/\n" +
-            "graph {\n" +
-            "    padding: 100px, 100px;\n" +
-            "}\n" +
-            "\n" +
-            "node {\n" +
-            "    text-size: 30;\n" +
-            "    text-alignment: at-right;\n" +
-            "    text-offset: 20, 20;\n" +
-            "    text-background-mode: plain;\n" +
-            "\n" +
-            "    size: 15px;\n" +
-            "    fill-color: #fefeff;\n" +
-            "    stroke-color: #3c3c3b;\n" +
-            "    stroke-mode: plain;\n" +
-            "    stroke-width: 3;\n" +
-            "}\n" +
-            "\n" +
-            "\n" +
-            "node.input {\n" +
-            "    text-style: bold;\n" +
-            "    fill-color: #d1e651;\n" +
-            "}\n" +
-            "\n" +
-            "node.output {\n" +
-            "    text-style: bold;\n" +
-            "    fill-color: #fd2a38;\n" +
-            "}\n" +
-            "\n" +
-            "node.reducer {\n" +
-            "    fill-color: #27ace4;\n" +
-            "}\n" +
-            "\n" +
-            "node.sorter {\n" +
-            "    fill-color: #FF3D7F;\n" +
-            "}\n" +
-            "\n" +
-            "node.joiner {\n" +
-            "    fill-color: #ffc453;\n" +
-            "}\n" +
-            "\n" +
-            "edge {\n" +
-            "    arrow-shape: arrow;\n" +
-            "    arrow-size: 10px, 4px;\n" +
-            "}";
-
+    public static final String STYLESHEET = "/*\n"
+            + "*/\n"
+            + "graph {\n"
+            + "    padding: 100px, 100px;\n"
+            + "}\n"
+            + "\n"
+            + "node {\n"
+            + "    text-size: 30;\n"
+            + "    text-alignment: at-right;\n"
+            + "    text-offset: 20, 20;\n"
+            + "    text-background-mode: plain;\n"
+            + "\n"
+            + "    size: 15px;\n"
+            + "    fill-color: #fefeff;\n"
+            + "    stroke-color: #3c3c3b;\n"
+            + "    stroke-mode: plain;\n"
+            + "    stroke-width: 3;\n"
+            + "}\n"
+            + "\n"
+            + "\n"
+            + "node.input {\n"
+            + "    text-style: bold;\n"
+            + "    fill-color: #d1e651;\n"
+            + "}\n"
+            + "\n"
+            + "node.output {\n"
+            + "    text-style: bold;\n"
+            + "    fill-color: #fd2a38;\n"
+            + "}\n"
+            + "\n"
+            + "node.reducer {\n"
+            + "    fill-color: #27ace4;\n"
+            + "}\n"
+            + "\n"
+            + "node.sorter {\n"
+            + "    fill-color: #FF3D7F;\n"
+            + "}\n"
+            + "\n"
+            + "node.joiner {\n"
+            + "    fill-color: #ffc453;\n"
+            + "}\n"
+            + "\n"
+            + "edge {\n"
+            + "    arrow-shape: arrow;\n"
+            + "    arrow-size: 10px, 4px;\n"
+            + "}";
 }

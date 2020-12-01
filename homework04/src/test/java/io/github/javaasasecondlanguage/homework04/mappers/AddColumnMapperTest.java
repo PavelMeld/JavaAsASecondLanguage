@@ -16,7 +16,8 @@ public class AddColumnMapperTest {
 
     @Test
     void general() {
-        Function<Record, Object> lambda = record -> format("%s %s", record.get("Name"), record.get("Surname"));
+        Function<Record, Object> lambda = record -> format("%s %s",
+                record.get("Name"), record.get("Surname"));
         AddColumnMapper mapper = new AddColumnMapper("Full name", lambda);
 
         List<Record> actualRecords = applyMapperToAllRecords(mapper, inputRecords);

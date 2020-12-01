@@ -1,5 +1,6 @@
 package io.github.javaasasecondlanguage.homework04;
 
+import io.github.javaasasecondlanguage.homework04.graphs.TfIdf;
 import io.github.javaasasecondlanguage.homework04.graphs.WordCount;
 import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
@@ -15,6 +16,14 @@ public class VisualizationDemo {
     @Test
     void launch() throws InterruptedException {
         var graph = WordCount.createGraph();
+        visualizeGraph(graph);
+        Thread.sleep(Long.MAX_VALUE);
+    }
+
+    @Disabled
+    @Test
+    void launchTfIdf() throws InterruptedException {
+        var graph = TfIdf.createGraph();
         visualizeGraph(graph);
         Thread.sleep(Long.MAX_VALUE);
     }

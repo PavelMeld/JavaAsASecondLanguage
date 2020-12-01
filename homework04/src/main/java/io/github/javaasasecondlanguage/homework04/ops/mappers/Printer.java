@@ -18,6 +18,9 @@ public class Printer implements Mapper {
     @Override
     public void apply(Record inputRecord, Collector collector) {
         System.out.printf("%s: %s%n", prefix, inputRecord);
+        if (inputRecord.isTerminal()) {
+            System.out.printf("T");
+        }
         collector.collect(inputRecord);
     }
 }

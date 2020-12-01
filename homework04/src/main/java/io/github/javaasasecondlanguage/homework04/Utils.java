@@ -43,7 +43,8 @@ public class Utils {
         return Math.abs(leftDouble - rightDouble) < precisionForDouble;
     }
 
-    public static int compareRecordsByKeys(Record leftRecord, Record rightRecord, List<String> keys) {
+    public static int compareRecordsByKeys(Record leftRecord, Record rightRecord,
+                                           List<String> keys) {
         for (var key : keys) {
             var leftValue = getComparable(leftRecord, key);
             var rightValue = getComparable(rightRecord, key);

@@ -25,7 +25,8 @@ public class MapperNode  implements ProcNode {
     @Override
     public void push(Record inputRecord, int gateNumber) {
         if (gateNumber != 0) {
-            throw new IllegalArgumentException("Gate does not exist: "+gateNumber);
+            throw new IllegalArgumentException("Gate does not exist: "
+                    + gateNumber);
         }
 
         if (!inputRecord.isTerminal()) {

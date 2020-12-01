@@ -26,7 +26,8 @@ class LowerCaseMapperTest {
                     {1, "Elegant weapon for a more civilized age;", "Obi-Wan"},
                     {2, "Of course I know him, he's me!", "Obi-Wan"},
                     {3, "I Am The Senate.", "Sheev"},
-                    {4, "I Don't Like Sand. It's Course And Rough and Irritating. And It Gets Everywhere.", "Anakin"},
+                    {4, "I Don't Like Sand. It's Course And Rough and Irritating. "
+                            + "And It Gets Everywhere.", "Anakin"},
                     {5, "Uh! So uncivilized.", "Obi-Wan"},
                     {6, "There’s always a bigger fish.", "Qui Gon"},
             }
@@ -38,7 +39,8 @@ class LowerCaseMapperTest {
                     {1, "elegant weapon for a more civilized age;", "Obi-Wan"},
                     {2, "of course i know him, he's me!", "Obi-Wan"},
                     {3, "i am the senate.", "Sheev"},
-                    {4, "i don't like sand. it's course and rough and irritating. and it gets everywhere.", "Anakin"},
+                    {4, "i don't like sand. it's course and rough and irritating. "
+                            + "and it gets everywhere.", "Anakin"},
                     {5, "uh! so uncivilized.", "Obi-Wan"},
                     {6, "there’s always a bigger fish.", "Qui Gon"},
             }

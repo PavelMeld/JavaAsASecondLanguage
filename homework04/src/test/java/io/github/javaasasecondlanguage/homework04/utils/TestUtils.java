@@ -26,7 +26,8 @@ public class TestUtils {
         var outputRecords = new ArrayList<Record>();
         for (var tuple : inputTuples) {
             if (schema.length != tuple.length) {
-                throw new IllegalArgumentException("Different number of column names and actual columns");
+                throw new IllegalArgumentException(
+                        "Different number of column names and actual columns");
             }
 
             var record = new Record(new HashMap<>());
@@ -51,7 +52,8 @@ public class TestUtils {
         return collector.getCollectedRecords();
     }
 
-    public static List<Record> applyReducerToAllGroups(Reducer reducer, List<RecordGroup> inputGroups) {
+    public static List<Record> applyReducerToAllGroups(Reducer reducer,
+               List<RecordGroup> inputGroups) {
         var collector = new ListCollector();
         for (RecordGroup group : inputGroups) {
             for (Record record : group.getRecords()) {

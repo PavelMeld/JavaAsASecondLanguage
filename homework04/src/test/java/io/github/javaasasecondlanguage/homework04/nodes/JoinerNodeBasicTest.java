@@ -16,7 +16,8 @@ class JoinerNodeBasicTest {
     @Test
     void general() {
         var joinerNode = new JoinerNode(of("AuthorId"));
-        var actualRecords = pushRecordsIntoJoinerNodeThenGetOutput(joinerNode, leftInputRecords, rightInputRecords);
+        var actualRecords = pushRecordsIntoJoinerNodeThenGetOutput(joinerNode,
+                leftInputRecords, rightInputRecords);
 
         assertRecordsEqual(expectedRecords, actualRecords);
     }
@@ -65,11 +66,16 @@ class JoinerNodeBasicTest {
     private static final List<Record> expectedRecords = convertToRecords(
             new String[]{"DocId", "Text", "AuthorId", "AuthorName"},
             new Object[][]{
-                    {1, "The Grey Knights have come on behalf of the Holy Inquisition.", 100, "Grey Knights"},
-                    {4, "The Heretics will suffer the ultimate punishment!", 100, "Grey Knights"},
-                    {3, "The warriors of the Inquisition are yours to command", 100, "Grey Knights"},
-                    {2, "The enemies of the Emperor shall be destroyed!", 200, "Apothecary"},
-                    {5, "The fallen shall be forever remembered as the Emperor's finest.", 200, "Apothecary"}
+                    {1, "The Grey Knights have come on behalf of the Holy Inquisition.",
+                        100, "Grey Knights"},
+                    {4, "The Heretics will suffer the ultimate punishment!",
+                        100, "Grey Knights"},
+                    {3, "The warriors of the Inquisition are yours to command",
+                        100, "Grey Knights"},
+                    {2, "The enemies of the Emperor shall be destroyed!",
+                        200, "Apothecary"},
+                    {5, "The fallen shall be forever remembered as the Emperor's finest.",
+                        200, "Apothecary"}
             }
     );
 }
